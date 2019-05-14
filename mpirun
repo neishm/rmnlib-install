@@ -1,0 +1,3 @@
+#!/bin/sh
+/usr/bin/mpirun --allow-run-as-root $*
+

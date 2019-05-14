@@ -428,6 +428,7 @@ ${SSM_REPOSITORY}/ssm_10.151_all.ssm: ${GIT_CACHE}/ssm_fork.git
 
 ${SSM_DOMAIN_HOME}: ${SSM_REPOSITORY}/ssm_10.151_all.ssm
 	${SSM_REPOSITORY}/ssm_10.151_all/bin/ssm-installer_10.151_all.sh \
+	    --userName "$(id -u)" --groupName "$(id -g)" \
 	    --label 'ssm package' --force \
 	    --domainHome ${SSM_DOMAIN_HOME} \
 	    --ssmRepositoryUrl ${SSM_REPOSITORY} \
