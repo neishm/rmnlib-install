@@ -10,7 +10,6 @@ cd ${packageHome}
 [[ -d src ]] || git clone ${GIT_CACHE:-https://github.com/mfvalin}/rpncomm src
 cd src || exit 1
 git pull
-git checkout branch_4.5.16 || exit 1
-git pull
+git checkout d3961ea9d9a69677d0df9a007b476636a5dc8776 || exit 1
 [[ -z ${AUTO_COMPILE}${INSTALL_ARCH_LIST} ]] && exit 0
 ${packageHome}/bin/install_rpn_comm.sh ${INSTALL_ARCH_LIST}
