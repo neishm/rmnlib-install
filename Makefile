@@ -95,6 +95,7 @@ gitcache: ${GIT_PACKAGES}
 
 SSM_PACKAGES = \
 	${SSM_REPOSITORY}/afsisio_1.0u_all.ssm \
+	${SSM_REPOSITORY}/gem-data_4.2.0_all.ssm \
 	${SSM_REPOSITORY}/armnlib_2.0u_all.ssm \
 	${SSM_REPOSITORY}/ssm_10.151_all.ssm \
 	${SSM_REPOSITORY}/perl-needed_0.0_linux26-x86-64.ssm \
@@ -131,6 +132,7 @@ ENV_PACKAGES = \
 	${SSM_ENV_DOMAIN}/code-tools_1.0_all \
 	${SSM_ENV_DOMAIN}/r.gppf_1.0.1_linux26-x86-64 \
 	${SSM_ENV_DOMAIN}/afsisio_1.0u_all \
+	${SSM_ENV_DOMAIN}/gem-data_4.2.0_all \
 	${SSM_ENV_DOMAIN}/armnlib_2.0u_all \
 	${SSM_ENV_DOMAIN}/etagere_1.0_all \
 	${SSM_ENV_DOMAIN}/rde_1.0.8e_all \
@@ -708,3 +710,14 @@ ${SSM_ENV_DOMAIN}/afsisio_1.0u_all: $(SSM_REPOSITORY)/afsisio_1.0u_all.ssm
 ${SSM_ENV_DOMAIN}/armnlib_2.0u_all: $(SSM_REPOSITORY)/armnlib_2.0u_all.ssm
 	ssm install --clobber -d ${SSM_ENV_DOMAIN} -u $(SSM_REPOSITORY) -p armnlib_2.0u_all
 	ssm publish -d ${SSM_ENV_DOMAIN} -p armnlib_2.0u_all --force
+
+${SSM_CACHE}/gem-data_4.2.0_all.ssm:
+	cd ${SSM_CACHE} && wget --progress=dot:giga ${WEB_HOME}/gem-data_4.2.0_all.ssm
+
+${SSM_REPOSITORY}/gem-data_4.2.0_all.ssm: ${SSM_CACHE}/gem-data_4.2.0_all.ssm
+	ln -sf ${SSM_CACHE}/gem-data_4.2.0_all.ssm ${SSM_REPOSITORY}/gem-data_4.2.0_all.ssm
+
+${SSM_ENV_DOMAIN}/gem-data_4.2.0_all: $(SSM_REPOSITORY)/gem-data_4.2.0_all.ssm
+	ssm install --clobber -d ${SSM_ENV_DOMAIN} -u $(SSM_REPOSITORY) -p gem-data_4.2.0_all
+	ssm publish -d ${SSM_ENV_DOMAIN} -p gem-data_4.2.0_all --force
+
